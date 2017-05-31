@@ -1,0 +1,25 @@
+version: '3.1'
+
+services:
+  ng:
+    build: app
+    ports:
+      - 4200:4200
+    volumes:
+      - ./app:/var/www/html
+    links:
+      - express
+
+  express:
+    build: service
+    ports:
+      - 3000:3000
+    volumes:
+      - ./service:/usr/src/express
+    links:
+      - db
+  
+  db:
+    image: mongo
+    ports:
+      - 2701:2701
